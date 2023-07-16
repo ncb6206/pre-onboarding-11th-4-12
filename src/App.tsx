@@ -1,13 +1,9 @@
 import React from 'react';
-import { Rate } from 'antd';
+import { RouterProvider } from 'react-router-dom';
+import rootRouter from './routes/Router';
 
 function App() {
-  return (
-    <div>
-      <Rate />
-      해위
-    </div>
-  );
+  return <RouterProvider router={rootRouter} />;
 }
 
 export default App;

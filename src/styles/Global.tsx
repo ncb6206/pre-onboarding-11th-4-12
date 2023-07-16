@@ -21,7 +21,7 @@ const style = css`
     justify-content: center;
     align-items: center;
     color: #1f2328;
-    background-color: #f6f8fa;
+    background-color: #cae9ff;
   }
 
   button {

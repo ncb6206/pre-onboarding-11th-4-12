@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { ClinicInput } from '../components/Input/ClinicInput';
+import ClinicInput from '../components/Input/ClinicInput';
 
-export function HomePage() {
+const HomePage = () => {
   return (
     <Main>
       <h2>
@@ -11,7 +11,7 @@ export function HomePage() {
       <ClinicInput />
     </Main>
   );
-}
+};
 
 const Main = styled.main`
   width: 100%;
@@ -28,3 +28,5 @@ const Main = styled.main`
     margin-bottom: 40px;
   }
 `;
+
+export default HomePage;

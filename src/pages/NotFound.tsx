@@ -6,7 +6,7 @@ const description = `
 "404 Not Found" 문구를 클릭하여 home으로 이동해주세요 🤗
 `;
 
-export function NotFoundPage() {
+const NotFoundPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -15,7 +15,7 @@ export function NotFoundPage() {
       <p>{description}</p>
     </Main>
   );
-}
+};
 
 const Main = styled.main`
   width: 100%;
@@ -33,3 +33,5 @@ const Main = styled.main`
     font-weight: 300;
   }
 `;
+
+export default NotFoundPage;

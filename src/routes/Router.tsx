@@ -4,8 +4,8 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
-import { HomePage } from '../pages/Home';
-import { NotFoundPage } from '../pages/NotFound';
+import HomePage from '../pages/Home';
+import NotFoundPage from '../pages/NotFound';
 
 const Router = (
   <Route>

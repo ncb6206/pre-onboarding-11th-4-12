@@ -18,5 +18,6 @@ export default function useInput<T extends string>(
   const handler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value as T);
   }, []);
+
   return [value, handler, setValue];
 }

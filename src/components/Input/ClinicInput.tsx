@@ -1,20 +1,70 @@
+import React, { useContext, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { SearchOutlined } from '@ant-design/icons';
+import { getClinic } from '../../service/search';
+import { IClinic } from '../../models/api';
+import ClinicList from '../List/ClinicList';
+import ClinicWordContext from '../../contexts/ClinicWordContext';
 
-export function ClinicInput() {
+const ClinicInput = () => {
+  const [clinicList, setClinicList] = useState<IClinic[]>([]);
+  const { clinic, onChangeClinic } = useContext(ClinicWordContext);
+
+  const getClinicList = async () => {
+    if (clinic) {
+      const response = await getClinic(clinic);
+      setClinicList(response.data);
+    } else {
+      setClinicList([]);
+    }
+    console.log(clinic, clinicList);
+  };
+
+  const onSubmitClinic = async () => {
+    const response = await getClinic(clinic);
+    setClinicList(response.data);
+  };
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      getClinicList();
+    }, 300);
+
+    return () => clearTimeout(debounce);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clinic]);
+
   return (
     <ClinicInputDiv>
-      <SearchOutlined />
-      <input type="text" placeholder="질환명을 입력해 주세요." />
-      <Button>
+      <ClinicInputHead>
         <SearchOutlined />
-      </Button>
+        <input
+          type="text"
+          placeholder="질환명을 입력해 주세요."
+          value={clinic}
+          onChange={onChangeClinic}
+        />
+        <Button onClick={onSubmitClinic}>
+          <SearchOutlined />
+        </Button>
+      </ClinicInputHead>
+      <ClinicInputBody>
+        <ClinicList clinicList={clinicList} />
+      </ClinicInputBody>
     </ClinicInputDiv>
   );
-}
+};
 
 const ClinicInputDiv = styled.div`
   width: 490px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const ClinicInputHead = styled.div`
+  width: 100%;
   height: 71px;
   display: flex;
   flex-direction: row;
@@ -58,3 +108,9 @@ const Button = styled.button`
     height: 21px;
   }
 `;
+
+const ClinicInputBody = styled.div`
+  width: 100%;
+`;
+
+export default ClinicInput;

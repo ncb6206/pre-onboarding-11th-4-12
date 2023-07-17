@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import { Outlet } from 'react-router-dom';
 
-export default function Layout() {
+const Layout = () => {
   return (
     <Wrap>
       <Outlet />
     </Wrap>
   );
-}
+};
 
 const Wrap = styled.div`
   width: 100%;
@@ -17,3 +17,5 @@ const Wrap = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+export default Layout;

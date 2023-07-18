@@ -2,7 +2,6 @@ import { Modal } from 'antd';
 import instance from './config';
 
 export const getClinic = async (word: string) => {
-  console.info('calling api');
   try {
     const response = await instance.get(`/sick?q=${word}`);
     if (response.status === 200) return response;

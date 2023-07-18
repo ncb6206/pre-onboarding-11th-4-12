@@ -1,10 +1,10 @@
-import { KeyboardEvent, useState } from 'react';
-import { ILength } from '../../../models/api';
+import { KeyboardEvent } from 'react';
+import { IControlKeys } from '../../../models/api';
 
 const controlKeys =
-  ({ maxLength, clinicLength }: ILength) =>
+  ({ maxLength, setClinic, focusId, setFocusId, clinicList }: IControlKeys) =>
   (event: KeyboardEvent<HTMLInputElement>) => {
-    const [focusId, setFocusId] = useState(-1);
+    const clinicLength = clinicList.length;
 
     if (event.key === 'ArrowDown') {
       clinicLength > 0 && clinicLength > maxLength
@@ -13,16 +13,15 @@ const controlKeys =
     }
     if (event.key === 'ArrowUp') {
       clinicLength > 0 && clinicLength > maxLength
-        ? setFocusId(prev => (prev - 1) % maxLength)
-        : setFocusId(prev => (prev - 1) % clinicLength);
+        ? setFocusId(prev => (prev - 1 > -1 ? prev - 1 : maxLength - 1))
+        : setFocusId(prev => (prev - 1 > -1 ? prev - 1 : clinicLength - 1));
     }
     if (event.key === 'Escape') {
       setFocusId(-1);
     }
-    // if (event.key === 'Enter') {
-    // }
-
-    return { focusId };
+    if (event.key === 'Enter') {
+      clinicLength > 0 && focusId >= 0 && setClinic(clinicList[focusId].sickNm);
+    }
   };
 
 export default controlKeys;

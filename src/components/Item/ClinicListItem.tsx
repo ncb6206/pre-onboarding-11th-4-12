@@ -1,21 +1,26 @@
 import styled from '@emotion/styled';
-import { IClinic } from '../../models/api';
+import { IClinicListItem } from '../../models/api';
 import { SearchOutlined } from '@ant-design/icons';
 
-const ClinicListItem = ({ clinic }: { clinic: IClinic }) => {
+const ClinicListItem = ({ clinic, focus }: IClinicListItem) => {
   return (
-    <ClinicListItemDiv>
+    <ClinicListItemDiv focus={focus}>
       <SearchOutlined />
       <span>{clinic.sickNm}</span>
     </ClinicListItemDiv>
   );
 };
 
-const ClinicListItemDiv = styled.div`
+interface IClinicListItemDiv {
+  focus: boolean;
+}
+
+const ClinicListItemDiv = styled.div<IClinicListItemDiv>`
   display: flex;
   flex-direction: row;
   gap: 1rem;
   cursor: pointer;
+  background-color: ${props => (props.focus ? '#dfdcdc' : '#ffffff')};
 
   > span {
     font-size: 20px;

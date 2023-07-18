@@ -5,19 +5,30 @@ import { getClinic } from '../../service/search';
 import { IClinic } from '../../models/api';
 import ClinicList from '../List/ClinicList';
 import ClinicWordContext from '../../contexts/ClinicWordContext';
+import controlKeys from '../Common/Utils/controlKey';
+import { getCachedClinic, setCacheClinic } from '../Common/Utils/cacheClinic';
 
 const ClinicInput = () => {
+  const { clinic, onChangeClinic, setClinic } = useContext(ClinicWordContext);
   const [clinicList, setClinicList] = useState<IClinic[]>([]);
-  const { clinic, onChangeClinic } = useContext(ClinicWordContext);
+  const [focusId, setFocusId] = useState(-1);
+  const maxLength = 10;
 
   const getClinicList = async () => {
     if (clinic) {
-      const response = await getClinic(clinic);
-      setClinicList(response.data);
+      const cachedData = await getCachedClinic(clinic);
+
+      if (cachedData) {
+        setClinicList(cachedData);
+      } else {
+        const response = await getClinic(clinic);
+        setCacheClinic({ word: clinic, data: response.data });
+        setClinicList(response.data);
+      }
     } else {
       setClinicList([]);
     }
-    console.log(clinic, clinicList);
+    setFocusId(-1);
   };
 
   const onSubmitClinic = async () => {
@@ -28,7 +39,7 @@ const ClinicInput = () => {
   useEffect(() => {
     const debounce = setTimeout(() => {
       getClinicList();
-    }, 300);
+    }, 400);
 
     return () => clearTimeout(debounce);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -43,13 +54,24 @@ const ClinicInput = () => {
           placeholder="질환명을 입력해 주세요."
           value={clinic}
           onChange={onChangeClinic}
+          onKeyDown={controlKeys({
+            maxLength,
+            setClinic,
+            focusId,
+            setFocusId,
+            clinicList,
+          })}
         />
         <Button onClick={onSubmitClinic}>
           <SearchOutlined />
         </Button>
       </ClinicInputHead>
       <ClinicInputBody>
-        <ClinicList clinicList={clinicList} />
+        <ClinicList
+          clinicList={clinicList}
+          maxLength={maxLength}
+          focusId={focusId}
+        />
       </ClinicInputBody>
     </ClinicInputDiv>
   );

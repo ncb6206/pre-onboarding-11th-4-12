@@ -1,26 +1,32 @@
 import styled from '@emotion/styled';
 import ClinicListItem from '../Item/ClinicListItem';
-import { IClinic } from '../../models/api';
+import { IClinicList } from '../../models/api';
 import React, { useContext } from 'react';
 import ClinicWordContext from '../../contexts/ClinicWordContext';
+import { SearchOutlined } from '@ant-design/icons';
 
-const ClinicList = ({ clinicList }: { clinicList: IClinic[] }) => {
+const ClinicList = ({ clinicList, maxLength, focusId }: IClinicList) => {
   const { clinic } = useContext(ClinicWordContext);
 
   return (
     <ClinicListDiv>
-      {clinicList.length !== 0 && (
+      {clinic && (
         <>
-          <p>{clinic}</p>
+          <ClinicListTitle>
+            <SearchOutlined />
+            <p>{clinic}</p>
+          </ClinicListTitle>
           <span>추천 검색어</span>
-          {clinicList.slice(0, 10).map(clinic => (
-            <React.Fragment key={clinic.sickCd}>
-              <ClinicListItem clinic={clinic} />
-            </React.Fragment>
-          ))}
+          {clinicList.length !== 0 &&
+            clinicList.slice(0, maxLength).map((clinic, index: number) => (
+              <React.Fragment key={clinic.sickCd}>
+                <ClinicListItem clinic={clinic} focus={focusId === index} />
+              </React.Fragment>
+            ))}
+          {clinicList.length === 0 && <p>검색어 없음</p>}
         </>
       )}
-      {clinicList.length === 0 && <span>검색어 없음</span>}
+      {!clinic && <span>검색어 없음</span>}
     </ClinicListDiv>
   );
 };
@@ -38,14 +44,17 @@ const ClinicListDiv = styled.div`
   z-index: 1;
   margin: 0 auto;
 
-  > p {
-    font-size: 20px;
-    font-weight: 700;
-  }
-
   > span {
     font-size: 1.5rem;
   }
+`;
+
+const ClinicListTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  font-size: 20px;
+  font-weight: 700;
 `;
 
 export default ClinicList;

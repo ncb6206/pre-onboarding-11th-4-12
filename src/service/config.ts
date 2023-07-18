@@ -3,11 +3,14 @@ import axios from 'axios';
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   timeout: 5000,
+  headers: {
+    Accept: 'application/json',
+  },
 });
 
 instance.interceptors.request.use(
   config => {
-    config.headers['Content-Type'] = 'application/json';
+    console.info('calling api');
     return config;
   },
   error => {

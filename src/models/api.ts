@@ -10,3 +10,8 @@ export interface IClinicWord {
   onChangeClinic: (event: ChangeEvent<HTMLInputElement>) => void;
   setClinic: (value: string) => void;
 }
+
+export interface ILength {
+  maxLength: number;
+  clinicLength: number;
+}

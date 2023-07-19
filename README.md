@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+# 원티드 프리온보딩 프론트엔드 인턴십 - 4주차 과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📌 프로젝트 목표
 
-## Available Scripts
+검색창 구현 + 검색어 추천 기능 구현 + 캐싱 기능 구현
 
-In the project directory, you can run:
+- [**`배포링크`**](https://pre-onboarding-11th-4-12.vercel.app/)
 
-### `npm start`
+<br>
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 📌 프로젝트 시작
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+npm install
+npm start
+```
 
-### `npm test`
+### .env파일 설정
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+REACT_APP_BASE_URL= http://localhost:4000
+```
 
-### `npm run build`
+<br>
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📌 필수 요구 사항
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
+- 검색어가 없을 시 “검색어 없음” 표출
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### API 호출별로 로컬 캐싱 구현
+- 캐싱 기능을 제공하는 라이브러리 사용 금지(React-Query 등)
+- expire time을 구현할 경우 가산점
 
-### `npm run eject`
+```tsx
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### API를 호출할 때 마다 console.info("calling api") 출력을 통해 콘솔창에서 API 호출 횟수 확인이 가능하도록 설정
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 키보드만으로 추천 검색어들로 이동 가능하도록 구현

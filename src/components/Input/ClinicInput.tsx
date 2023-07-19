@@ -7,9 +7,16 @@ import ClinicList from '../List/ClinicList';
 import ClinicWordContext from '../../contexts/ClinicWordContext';
 import controlKeys from '../Common/Utils/controlKey';
 import { getCachedClinic, setCacheClinic } from '../Common/Utils/cacheClinic';
+import { Link } from 'react-router-dom';
+import useModal from '../../hooks/useModal';
 
 const ClinicInput = () => {
   const { clinic, onChangeClinic, setClinic } = useContext(ClinicWordContext);
+  const {
+    showModal: showList,
+    handleShowModal: handleShowList,
+    handleHideModal: handleHideList,
+  } = useModal();
   const [clinicList, setClinicList] = useState<IClinic[]>([]);
   const [focusId, setFocusId] = useState(-1);
   const maxLength = 10;
@@ -29,11 +36,6 @@ const ClinicInput = () => {
       setClinicList([]);
     }
     setFocusId(-1);
-  };
-
-  const onSubmitClinic = async () => {
-    const response = await getClinic(clinic);
-    setClinicList(response.data);
   };
 
   useEffect(() => {
@@ -61,18 +63,27 @@ const ClinicInput = () => {
             setFocusId,
             clinicList,
           })}
+          onFocus={handleShowList}
+          onBlur={handleHideList}
         />
-        <Button onClick={onSubmitClinic}>
-          <SearchOutlined />
-        </Button>
+        <Link
+          to={`https://clinicaltrialskorea.com/studies?conditions=${clinic}`}
+          target="_blank"
+        >
+          <Button>
+            <SearchOutlined />
+          </Button>
+        </Link>
       </ClinicInputHead>
-      <ClinicInputBody>
-        <ClinicList
-          clinicList={clinicList}
-          maxLength={maxLength}
-          focusId={focusId}
-        />
-      </ClinicInputBody>
+      {showList && (
+        <ClinicInputBody>
+          <ClinicList
+            clinicList={clinicList}
+            maxLength={maxLength}
+            focusId={focusId}
+          />
+        </ClinicInputBody>
+      )}
     </ClinicInputDiv>
   );
 };

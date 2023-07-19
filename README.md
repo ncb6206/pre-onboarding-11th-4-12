@@ -254,3 +254,13 @@ const controlKeys =
 위방향 키를 눌렀을 시 위로 검색어의 focusId가 이동되게 하였습니다. <br/>
 esc 키를 눌렀을 시 focusId가 -1이 되도록 하였습니다. <br/>
 enter키를 눌렀을 시 추천 검색어 배열의 focusId번째 질환명이 검색창에 적용되도록 하였습니다.
+
+## 기술 스택 & 사용 라이브러리
+
+|구분| 스택 & 라이브러리|
+|--|--|
+|언어|<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">|
+|메인 라이브러리|<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">|
+|기타 라이브러리|<img alt="Static Badge" src="https://img.shields.io/badge/CSS-Emotion-%235A29E4?style=for-the-badge"><img alt="Static Badge" src="https://img.shields.io/badge/Axios-%235A29E4?style=for-the-badge&logo=axios">
+|패키지 관리|<img alt="Static Badge" src="https://img.shields.io/badge/npm-%23CB3837?style=for-the-badge&logo=npm">|
+|배포| <img src="https://img.shields.io/badge/vercel-232F3E?style=for-the-badge&logo=vercel&logoColor=white"> |

@@ -6,7 +6,7 @@ export interface IClinic {
 }
 
 export interface IClinicListItem {
-  clinic: IClinic;
+  item: IClinic;
   focus: boolean;
 }
 

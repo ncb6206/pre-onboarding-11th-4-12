@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import ClinicWordContext from '../../contexts/ClinicWordContext';
 
 const ClinicListItem = ({ item, focus }: IClinicListItem) => {
-  const { setClinic } = useContext(ClinicWordContext);
+  const { clinic, setClinic } = useContext(ClinicWordContext);
 
   const onClickClinic = () => {
     setClinic(item.sickNm);
@@ -14,7 +14,18 @@ const ClinicListItem = ({ item, focus }: IClinicListItem) => {
   return (
     <ClinicListItemDiv focus={focus} onClick={onClickClinic}>
       <SearchOutlined />
-      <span>{item.sickNm}</span>
+      <span>
+        {item.sickNm.split(clinic).map((part, index) =>
+          index === item.sickNm.split(clinic).length - 1 ? (
+            part
+          ) : (
+            <>
+              <span>{part}</span>
+              <HighLight>{clinic}</HighLight>
+            </>
+          ),
+        )}
+      </span>
     </ClinicListItemDiv>
   );
 };
@@ -34,6 +45,10 @@ const ClinicListItemDiv = styled.div<IClinicListItemDiv>`
   > span {
     font-size: 20px;
   }
+`;
+
+const HighLight = styled.span`
+  font-weight: 900;
 `;
 
 export default ClinicListItem;

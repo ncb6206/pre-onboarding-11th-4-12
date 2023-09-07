@@ -56,7 +56,21 @@
 
 <br/>
 
-## 📌 프로젝트 시작
+## 📌 기능 목록
+
+## 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
+  
+| 데모영상  | 구현 기능  |
+| --------------------------------- | --------------------------- |
+| <img width=1000 src="https://github.com/ncb6206/pre-onboarding-11th-4-12/assets/62326659/127849d3-6c92-4f50-92ad-39db70d51aa1"/> | <br/> · **`검색어 없음` 메시지 표시** : 검색어 입력이 없을 경우, `검색어 없음`이라는 메시지를 표시하여 사용자에게 명확한 안내를 제공합니다. <br/><br/> · **실시간 질환명 검색** : 검색창에 질환명을 입력하면, API 호출을 통해 해당 질환명을 받습니다. <br/><br/>  · **입력에 대한 `debounce` 적용** : 더 나은 사용자 경험을 제공하기 위해 `debounce`를 적용하여, 사용자의 연속적인 입력에 대한 API 호출을 일정 시간 간격으로 제한함으로써 서버 부하를 관리하고 성능 최적화에 기여합니다. <br/><br/>  · **로컬 캐싱 구현** : `cache storage`를 활용하여 API 호출 결과를 로컬에서 캐싱함으로써, 동일한 요청에 대해서는 네트워크 호출 없이 빠른 데이터 접근성을 보장하였습니다. 이로 인해 네트워크 트래픽과 처리 시간이 줄어들었습니다. <br/><br/> · **캐싱된 데이터에 대한 `expire time` 구현** : 캐싱된 데이터는 1시간 후 자동 삭제되며, 이후 동일한 요청이 들어올 경우 최신 데이터를 다시 가져오도록 `expire time`을 구현하였습니다. <br/><br/>     |
+
+## 키보드만으로 추천 검색어들로 이동 가능하도록 구현
+
+| 데모영상  | 구현 기능  |
+| ------------------- | --------------------------- |
+| <img width=800 src="https://github.com/ncb6206/pre-onboarding-11th-4-12/assets/62326659/b6da35a9-45b7-446a-b4ba-903c32dfcc72"/> | · **추천 검색어 제공** : 사용자가 키보드 입력을 통해 추천 검색어를 선택하고 검색할 수 있도록 구현하였습니다. <br/><br/> · **방향키를 이용한 포커스 이동** : 사용자의 편의성을 고려하여 위, 아래 방향키를 사용하여 포커스가 이동할 수 있는 인터랙션을 설계하였습니다. <br/><br/>  · **초기화 기능 구현** : `esc` 키 입력 시, 현재 설정된 포커스를 초기화하는 기능을 구현하여 사용자의 조작 오류를 최소화하였습니다. <br/><br/> · **자동 적용 기능 추가** : `enter`키 입력 시, 사용자의 원활한 검색 경험을 위해 현재 포커스된 질환명이 검색창에 자동으로 적용되도록 로직을 개선하였습니다. |
+
+## 📌 개발 환경 설정
 
 ```
 $ npm install
@@ -66,26 +80,10 @@ $ npm start
 ### .env파일 설정
 
 ```
-REACT_APP_BASE_URL= http://localhost:4000
+REACT_APP_BASE_URL= 
 ```
 
 <br>
-
-## 📌 기능 목록
-
-## 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
-  
-| 데모영상  | 구현 기능  |
-| --------------------------------- | --------------------------- |
-| <img width=1000 src="https://github.com/ncb6206/pre-onboarding-11th-4-12/assets/62326659/127849d3-6c92-4f50-92ad-39db70d51aa1"/> | <br/> · 검색어가 입력되지 않았을 경우에는 `검색어 없음`이라는 메시지를 표시합니다. <br/><br/> · 사용자가 질환명을 검색창에 입력하면 API가 호출되어 질환명을 받아옵니다. <br/><br/>  · 사용자 경험을 향상시키기 위해 `debounce`를 적용하여, 사용자가 질환명을 입력할 때마다 즉시 API를 호출하지 않고, 일정 시간 간격으로 호출하여 API 호출 횟수를 관리합니다. <br/><br/>  · `cache storage`를 활용하여 API 호출별로 로컬 캐싱을 구현하여, 이후 동일한 요청이 있을 경우 네트워크 호출을 최소화하고 빠른 데이터 접근을 지원하였습니다.  <br/><br/>  · 캐시에 저장된 데이터가 1시간을 초과하면 해당 데이터는 자동으로 삭제되고, 사용자가 다음 요청 시에는 최신 데이터를 새롭게 가져오는 것으로 `expire time`을 구현하였습니다. <br/><br/>     |
-
-## 키보드만으로 추천 검색어들로 이동 가능하도록 구현
-
-| 데모영상  | 구현 기능  |
-| ------------------- | --------------------------- |
-| <img width=500 src="https://github.com/ncb6206/pre-onboarding-11th-4-12/assets/62326659/b6da35a9-45b7-446a-b4ba-903c32dfcc72"/> | · 추천 검색어가 존재하는 경우, 키보드 입력을 통해 해당 검색어를 선택할 수 있도록 하였습니다. <br/><br/> · 위와 아래 방향키를 사용하여 `focus`가 이동할 수 있도록 설계하였습니다. <br/><br/>  · `esc` 키를 누르면 `focus`가 초기화되도록 조치하였습니다. <br/><br/> · `enter`키를 누르면 현재 `focus`된 질환명이 검색창에 자동으로 적용되도록 구현하였습니다." |
-
-
 
 ## 📌 json-server 배포
 
@@ -96,8 +94,8 @@ REACT_APP_BASE_URL= http://localhost:4000
 
 |구분| 스택 & 라이브러리|
 |--|--|
-|언어|<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">|
+|언어| <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">|
 |메인 라이브러리|<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">|
-|기타 라이브러리|<img alt="Static Badge" src="https://img.shields.io/badge/CSS-Emotion-%235A29E4?style=for-the-badge"><img alt="Static Badge" src="https://img.shields.io/badge/Axios-%235A29E4?style=for-the-badge&logo=axios">
+|기타 라이브러리|<img alt="Static Badge" src="https://img.shields.io/badge/Emotion-%235A29E4?style=for-the-badge"> <img alt="Static Badge" src="https://img.shields.io/badge/Axios-%235A29E4?style=for-the-badge&logo=axios"> <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge">
 |패키지 관리|<img alt="Static Badge" src="https://img.shields.io/badge/npm-%23CB3837?style=for-the-badge&logo=npm">|
 |배포| <img src="https://img.shields.io/badge/vercel-232F3E?style=for-the-badge&logo=vercel&logoColor=white"> |
